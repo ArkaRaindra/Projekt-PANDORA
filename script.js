@@ -4,6 +4,8 @@ const secretNavItem = document.querySelector('.secret-nav-item');
 const secretTrigger = document.querySelector('.slider2 a[href="archive.html"]');
 const archiveImageTrigger = document.querySelector('.slider2 img[src="img/m200(1).jpg"]');
 const exitNavItem = document.querySelector('.exit-nav-item');
+const aliceTrigger = document.querySelector('.alice-trigger');
+const aliceAudio = document.getElementById('alice-audio');
 
 const popup = document.querySelector('.popup');
 const poppass = document.getElementById('poppass');
@@ -210,6 +212,25 @@ widgetContent.addEventListener('click', () => {
     }
 });
 
+if (aliceTrigger) {
+    aliceTrigger.addEventListener('click', (event) => {
+        event.preventDefault();
+        aliceTrigger.classList.add('alice-hidden');
+
+        if (aliceAudio) {
+            fronttheme.pause();
+            aliceAudio.volume = 0.25;
+            aliceAudio.play().then(() => {
+                showNowPlayingToast('Alice');
+            }).catch(() => {});
+        }
+
+        setTimeout(() => {
+            window.location.href = 'wonderland.html';
+        }, 150);
+    });
+}
+
 if (secretTrigger) {
     let secretClickCount = 0;
     secretTrigger.addEventListener('click', (event) => {
@@ -289,4 +310,16 @@ if (popnotif) {
     popnotif.addEventListener('click', function() {
         showRandomTip();
     });
+}
+
+if (sessionStorage.getItem('playAlice') === 'true') {
+    sessionStorage.removeItem('playAlice');
+
+    if (aliceAudio) {
+        fronttheme.pause();
+        aliceAudio.volume = 0.25;
+        aliceAudio.play().then(() => {
+            showNowPlayingToast('Alice');
+        }).catch(() => {});
+    }
 }

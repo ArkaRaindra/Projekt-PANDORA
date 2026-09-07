@@ -300,6 +300,40 @@ header {
     width: 20%;
 }
 
+.alice-trigger {
+    display: inline-block;
+    opacity: 0;
+    pointer-events: none;
+    animation: aliceShow 25s infinite ease-in-out;
+}
+
+.alice-trigger.alice-hidden {
+    display: none !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    animation: none;
+}
+
+.alice-trigger img {
+    display: block;
+    max-width: 100%;
+}
+
+@keyframes aliceShow {
+    0%, 74.99% {
+        opacity: 0;
+        pointer-events: none;
+    }
+    75%, 95% {
+        opacity: 1;
+        pointer-events: auto;
+    }
+    95.01%, 100% {
+        opacity: 0;
+        pointer-events: none;
+    }
+}
+
 @keyframes slideLoop {
     0%, 20% { transform: translateX(0); }
     
